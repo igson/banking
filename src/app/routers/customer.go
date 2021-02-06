@@ -15,18 +15,28 @@ var (
 	customerController = controller.NewCustomerController(customerService)
 )
 
+const (
+	GRUPO_CLIENTES_URI = "clientes"
+)
+
 var rotasCustomer = []Rota{
 
 	{
 		URI:                "/customers",
 		Metodo:             http.MethodGet,
 		Funcao:             customerController.GetAllCustomers,
-		RequerAutenticacao: false,
+		RequerAutenticacao: true,
+		Name:               "ListarClientes",
+		Grupo:              GRUPO_CLIENTES_URI,
+		//Permissoes:         []gin.HandlerFunc{middlewares.Logger(), middlewares.Autenticar(), customerController.GetAllCustomers},
 	},
 	{
 		URI:                "/customers/:customer_id",
 		Metodo:             http.MethodGet,
 		Funcao:             customerController.GetCustomer,
-		RequerAutenticacao: false,
+		RequerAutenticacao: true,
+		Name:               "BuscarCliente",
+		Grupo:              GRUPO_CLIENTES_URI,
+		//Permissoes:         []gin.HandlerFunc{middlewares.Logger(), middlewares.Autenticar(), customerController.GetAllCustomers},
 	},
 }
