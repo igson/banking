@@ -7,7 +7,6 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/igson/banking/src/autenticacao"
 	"github.com/igson/banking/src/errors"
 	"github.com/igson/banking/src/interfaces"
 )
@@ -45,13 +44,13 @@ func (c *customerController) GetAllCustomers(ctx *gin.Context) {
 		ctx.JSON(err.StatusCode, err)
 	}
 
-	uID, erro := autenticacao.ExtrairUsuarioID(ctx.Request)
+	//uID, erro := autenticacao.ExtrairUsuarioID(ctx.Request)
 
-	if erro != nil {
+	/* if erro != nil {
 		ctx.JSON(err.StatusCode, err)
-	}
+	} */
 
-	fmt.Println("UID", uID)
+	//fmt.Println("UID", uID)
 
 	ctx.JSON(http.StatusOK, customers)
 
@@ -68,18 +67,19 @@ func (c *customerController) GetCustomer(ctx *gin.Context) {
 		return
 	}
 
-	userTokenID, erro := autenticacao.ExtrairUsuarioID(ctx.Request)
+	//	userTokenID, erro := autenticacao.ExtrairUsuarioID(ctx.Request)
 
-	if erro != nil {
-		ctx.JSON(erro.StatusCode, erro.Message)
-		return
-	}
+	/* 	if erro != nil {
+	   		ctx.JSON(erro.StatusCode, erro.Message)
+	   		return
+	   	}
+	*/
 
-	if userTokenID != id {
+	/* if userTokenID != id {
 		restErr := errors.NewBadRequestError("Você não tem permissão pra essa operação")
 		ctx.JSON(restErr.StatusCode, restErr.Message)
 		return
-	}
+	} */
 
 	customer, err := c.service.GetCustomer(id)
 

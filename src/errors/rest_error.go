@@ -55,3 +55,12 @@ func NewUnexpectedError(message string) *RestErroAPI {
 		Error:      "database_error",
 	}
 }
+
+//NewStatusForbiddenError retorno não autorizado
+func NewStatusForbiddenError() *RestErroAPI {
+	return &RestErroAPI{
+		Message:    "Não autorizado",
+		StatusCode: http.StatusForbidden,
+		Error:      "Unauthorized",
+	}
+}

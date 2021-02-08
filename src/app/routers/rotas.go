@@ -29,8 +29,8 @@ type Rota struct {
 
 //Configurar carregar lista de rotas
 func Configurar(r *gin.Engine) *gin.Engine {
-	//rotas := rotasAccounts
-	var rotas []Rota
+	rotas := rotasAccounts
+	//var rotas []Rota
 	rotas = append(rotas, rotasCustomer...)
 	rotas = append(rotas, rotasLogin...)
 	//func(httpMethod string, relativePath string, handlers ...gin.HandlerFunc) gin.IRoutes
@@ -42,7 +42,7 @@ func Configurar(r *gin.Engine) *gin.Engine {
 	for _, rota := range rotas {
 
 		if rota.RequerAutenticacao {
-			r.Handle(rota.Metodo, rota.URI, middlewares.Autenticar(), rota.Funcao)
+			r.Handle(rota.Metodo, rota.URI, middlewares.Authorization(rota.Name), rota.Funcao)
 			fmt.Println(fmt.Sprintf("Rota %s requer autenticação", rota.Name))
 		} else {
 			r.Handle(rota.Metodo, rota.URI, rota.Funcao)
